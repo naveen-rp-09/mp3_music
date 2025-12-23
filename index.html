@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .movie-card {
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.05);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .movie-card a {
+            display: block;
+            padding: 12px;
+            text-decoration: none;
+            color: #333;
+            font-size: 18px;
+            font-weight: bold;
+            background: #f9f9f9;
+            transition: color 0.3s;
+        }
+
+        .movie-card a:hover {
+            color: #ff5733;
+        }
+
+        /* Dark Mode */
+        .dark-mode {
+            background: #1e1e1e;
+            color: #f1f1f1;
+        }
+
+        .dark-mode header {
+            background: #111;
+        }
+
+        .dark-mode .movie-card {
+            background: #2a2a2a;
+        }
+
+        .dark-mode .movie-card a {
+            background: #333;
+            color: #f1f1f1;
+        }
+
+        .controls {
+            text-align: center;
+            margin: 15px;
+        }
+
+        #searchBox {
+            padding: 8px;
+            font-size: 16px;
+            width: 250px;
+        }
+
+
+        /* Footer */
+        footer {
+            background: #1c1c1c;
+            color: #fff;
+            padding: 40px 20px 20px 20px;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .footer-section {
+            flex: 1 1 220px;
+            margin: 15px;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 15px;
+            color: #ff5733;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            text-decoration: none;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #ffbd33;
+        }
+
+        .footer-section .socials a {
+            margin-right: 10px;
+            font-size: 18px;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        .footer-section .socials a:hover {
+            color: #ffbd33;
+        }
+
+        .footer-section form {
+            display: flex;
+        }
+
+        .footer-section input[type="email"] {
+            padding: 8px;
+            flex: 1;
+            border: none;
+            border-radius: 4px 0 0 4px;
+        }
+
+        .footer-section button {
+            padding: 8px 12px;
+            border: none;
+            background: #ff5733;
+            color: #fff;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .footer-section button:hover {
+            background: #ffbd33;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            margin-top: 20px;
+        }
+
+        .dark-mode footer {
+            background: #111;
+            color: #ccc;
+        }
+
+        .dark-mode .footer-section h3 {
+            color: #ff8c00;
+        }
+
+        .dark-mode .footer-section ul li a,
+        .dark-mode .footer-section .socials a {
+            color: #ccc;
+        }
+
+        .dark-mode .footer-section ul li a:hover,
+        .dark-mode .footer-section .socials a:hover {
+            color: #ff8c00;
+        }
+
+        .dark-mode .footer-section button {
+            background: #ff8c00;
+            color: #111;
+        }
+
+        .dark-mode .footer-section button:hover {
+            background: #ffd700;
+        }
+
+        @media screen and (max-width: 1024px) {
+            .gallery {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+            }
+
+            #searchBox {
+                width: 200px;
+            }
+
+            .movie-card img {
+                height: 250px;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            header h1 {
+                font-size: 20px;
+            }
+
+            header p {
+                font-size: 14px;
+            }
+
+            #searchBox {
+                width: 150px;
+                font-size: 14px;
+            }
+
+            .movie-card img {
+                height: 200px;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-section {
+                margin: 10px 0;
+            }
+
+            .footer-section form {
+                flex-direction: column;
+            }
+
+            .footer-section input[type="email"],
+            .footer-section button {
+                width: 100%;
+                border-radius: 4px;
+                margin-bottom: 8px;
+            }
+        }
+
+        .controls {
+            text-align: center;
+            margin: 15px;
+        }
+
+        #searchBox {
+            padding: 10px 15px;
+            font-size: 17px;
+            width: 300px;
+            border-radius: 25px;
+            border: 1px solid #ccc;
+            transition: width 0.4s ease, box-shadow 0.3s;
+        }
+
+        #searchBox:focus {
+            width: 450px;
+            outline: none;
+            box-shadow: 0 0 8px rgba(255, 87, 51, 0.5);
+        }
+
+        .toggle-btn {
+            position: fixed;
+            right: 20px;
+            top: 100px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #333;
+            color: #fff;
+            font-size: 22px;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: background 0.3s, transform 0.3s;
+            z-index: 1000;
+        }
+
+        .toggle-btn:hover {
+            background: #ff5733;
+            transform: scale(1.1);
+        }
+
+        .dark-mode .toggle-btn {
+            background: #ff8c00;
+            color: #111;
+        }
+
+        .logout-btn {
+            position: absolute;
+            right: 20px;
+            top: 15px;
+            background: #ff5733;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #ffbd33;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>🎬 Tamil Movie Songs</h1>
+        <p>Select a movie to view its songs</p>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </header>
+
+    <div class="controls">
+        <input type="text" id="searchBox" placeholder="🔍 Search movies..." onkeyup="searchMovies()">
+    </div>
+
+    <button onclick="toggleDarkMode()" class="toggle-btn" title="Toggle Dark Mode">🌙</button>
+
+
+    <div class="gallery">
+        <div class="movie-card">
+            <a href="madharasi.html">
+                <img src="Movies-images\madharasi.jpg" alt="thanga pooveh">
+                madharaasi
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="coolie.html">
+                <img src="Movies-images\coolie.jpg" alt="coolie">
+                coolie
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="dragon.html">
+                <img src="Movies-images\dragon.jpg" alt="dragon">
+                dragon
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="eleven.html">
+                <img src="Movies-images\eleven.jpg" alt="eleven">
+                eleven
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="kudumbasthan.html">
+                <img src="Movies-images\Kudumbasthan.jpg" alt="Kudumbasthan">
+                Kudumbasthan
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="retro.html">
+                <img src="Movies-images\retro.jpeg" alt="retro">
+                retro
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="thalaivanthalaivi.html">
+                <img src="Movies-images\thalaivanthalaivii.jpg" alt="thalaivanthalaivii">
+                thalaivanthalaivii
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="gbu.html">
+                <img src="Movies-images\gbu.jpg" alt="gbu">
+                gbu
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="thuglife.html">
+                <img src="Movies-images\thuglife.jpg" alt="thuglife">
+                thuglife
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="kingston.html">
+                <img src="Movies-images\kingston.jpeg" alt="kingston">
+                kingston
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="madhagajaraja.html">
+                <img src="Movies-images\madhagajaraja.jpg" alt="madhagajaraja">
+                madhagajaraja
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="kadhalikaneramillai.html">
+                <img src="Movies-images\kan2" alt="kadhalikaneramillai">
+                kadhalikaneramillai
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="3bhk.html">
+                <img src="Movies-images\3bhk.jpeg" alt="3bhk">
+                3bhk
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="mareesan.html">
+                <img src="Movies-images\maareesan.jpg" alt="maareesan">
+                maareesan
+            </a>
+        </div>
+
+        <div class="movie-card">
+            <a href="maargan.html">
+                <img src="Movies-images\maargan.jpg" alt="maargan">
+                maargan
+            </a>
+        </div>
+
+    </div>
+
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section about">
+                <h3>About Tamil Movie Songs</h3>
+                <p>Your ultimate destination for Tamil movie songs. Download and enjoy your favorite tracks anytime,
+                    anywhere.</p>
+            </div>
+
+            <div class="footer-section links">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Top Songs</a></li>
+                    <li><a href="#">New Releases</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section contact">
+                <h3>Contact Us</h3>
+                <p>Email: support@tamilmoviesongs.com</p>
+                <p>Phone: +91 12345 67890</p>
+                <div class="socials">
+                    <a href="#">🌐</a>
+                    <a href="#">📘</a>
+                    <a href="#">🐦</a>
+                    <a href="#">📸</a>
+                </div>
+            </div>
+
+            <div class="footer-section newsletter">
+                <h3>Subscribe</h3>
+                <p>Get the latest songs directly in your inbox</p>
+                <form>
+                    <input type="email" placeholder="Your email..." required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2025 Tamil Movie Songs. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+
+        function loadMovies() {
+            fetch("movies.json") 
+                .then(res => res.json())
+                .then(data => {
+                    const gallery = document.getElementById("gallery");
+                    gallery.innerHTML = "";
+                    data.forEach(movie => {
+                        const card = document.createElement("div");
+                        card.className = "movie-card";
+                        card.innerHTML = `
+                            <a href="${movie.link}">
+                                <img src="${movie.image}" alt="${movie.title}">
+                                ${movie.title}
+                            </a>
+                        `;
+                        gallery.appendChild(card);
+
+                        card.querySelector("a").addEventListener("click", () => {
+                            alert("🎬 You are opening " + movie.title + " songs!");
+                        });
+                    });
+                })
+                .catch(err => console.error("Error loading movies:", err));
+        }
+
+
+        loadMovies();
+
+        function searchMovies() {
+            let input = document.getElementById("searchBox").value.toLowerCase();
+            let cards = document.querySelectorAll(".movie-card");
+
+            cards.forEach(card => {
+                let title = card.innerText.toLowerCase();
+                card.style.display = title.includes(input) ? "block" : "none";
+            });
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
+        }
+
+        // Load saved theme
+        window.onload = function () {
+            if (localStorage.getItem("theme") === "dark") {
+                document.body.classList.add("dark-mode");
+            }
+        };
+
+        function logout() {
+            if (confirm("Are you sure you want to log out?")) {
+                localStorage.clear(); 
+                window.location.href = "login.html"; 
+            }
+        }
+    </script>
+</body>
+
+</html>

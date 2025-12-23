@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Madharasi Movie Songs</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #333;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .songs {
+      max-width: 800px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .song {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .song:last-child {
+      border-bottom: none;
+    }
+
+    .song-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      width: 150px;
+    }
+
+    .song-info img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .song-info span {
+      font-weight: bold;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .song-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    button {
+      background: green;
+      color: white;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: darkgreen;
+    }
+
+    #player-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    audio {
+      width: 100%;
+      max-width: 500px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🎵 Songs from Madharaasi Movie</h1>
+    <a href="index.html" style="color: yellow; text-decoration:none;">⬅ Back to Movies</a>
+  </header>
+
+  <div id="player-container">
+    <h3>Now Playing 🎧</h3>
+    <audio id="audioPlayer" controls>
+      <source src="" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+    <p id="nowPlaying">No song selected</p>
+  </div>
+
+  <div class="songs">
+
+    <div class="song">
+      <div class="song-info">
+        <img src="Movies Songs-images\madharasi-songs\thangapoovehh.jpg" alt="Thangapoovehh Song">
+        <span>Thangapoovehh</span>
+      </div>
+      <div class="song-actions">
+        <button onclick="playSong('songs/thangapooveh.mp3','Thangapooveh-Song')">▶ Play</button>
+        <button onclick="downloadSong('songs/thangapooveh.mp3')">⬇ Download</button>
+      </div>
+    </div>
+
+    <div class="song">
+      <div class="song-info">
+        <img src="Movies Songs-images\madharasi-songs\salamballe.jpg" alt="Salamballe Song">
+        <span>Salamballe</span>
+      </div>
+      <div class="song-actions">
+        <button onclick="playSong('songs/salambale.mp3','Salambale-Song')">▶ Play</button>
+        <button onclick="downloadSong('songs/salambale.mp3')">⬇ Download</button>
+      </div>
+    </div>
+
+    <div class="song">
+      <div class="song-info">
+        <img src="Movies Songs-images\madharasi-songs\vazhiyiraen.jpg" alt="Vazhiyiraen Song">
+        <span>Vazhiyiraen</span>
+      </div>
+      <div class="song-actions">
+        <button onclick="playSong('songs/Vazhiyiraen.mp3','Vazhiyiraen-Song')">▶ Play</button>
+        <button onclick="downloadSong('songs/vazhiyiraen.mp3')">⬇ Download</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+
+    function playSong(file, title) {
+      const player = document.getElementById("audioPlayer");
+      const nowPlaying = document.getElementById("nowPlaying");
+      player.src = file;
+      player.play();
+      nowPlaying.textContent = "Playing: " + title;
+    }
+    function downloadSong(file) {
+      fetch(file)
+        .then(response => response.blob())
+        .then(blob => {
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.style.display = 'none';
+          a.href = url;
+          a.download = file.split('/').pop();
+          document.body.appendChild(a);
+          a.click();
+          window.URL.revokeObjectURL(url);
+        })
+        .catch(() => alert('Failed to download the song.'));
+    }
+  </script>
+
+
+  <footer style="background:#222; color:#ddd; padding:30px 20px; margin-top:40px; font-family:Arial, sans-serif;">
+    <div style="max-width:1000px; margin:auto; display:flex; flex-wrap:wrap; justify-content:space-between;">
+
+      <div style="flex:1; min-width:250px; margin:10px;">
+        <h3 style="color:#fff; margin-bottom:10px;">🎬 Movie Gallery</h3>
+        <p style="line-height:1.6;">
+          Enjoy a collection of your favorite movie songs.
+          Stay connected for updates on new releases!
+        </p>
+      </div>
+
+      <div style="flex:1; min-width:200px; margin:10px;">
+        <h4 style="color:#fff; margin-bottom:10px;">Quick Links</h4>
+        <ul style="list-style:none; padding:0; line-height:1.8;">
+          <li><a href="index.html" style="color:#f0c14b; text-decoration:none;">🏠 Home</a></li>
+          <li><a href="about.html" style="color:#f0c14b; text-decoration:none;">ℹ About Us</a></li>
+          <li><a href="contact.html" style="color:#f0c14b; text-decoration:none;">📩 Contact</a></li>
+        </ul>
+      </div>
+
+
+      <div style="flex:1; min-width:250px; margin:10px;">
+        <h4 style="color:#fff; margin-bottom:10px;">Contact Us</h4>
+        <p>📧 <a href="mailto:moviemusic@example.com"
+            style="color:#f0c14b; text-decoration:none;">moviemusic@example.com</a></p>
+        <p>📞 +91 98765 43210</p>
+        <div style="margin-top:10px;">
+          <a href="#" style="margin-right:10px; color:#f0c14b;">🌐 Facebook</a>
+          <a href="#" style="margin-right:10px; color:#f0c14b;">🐦 Twitter</a>
+          <a href="#" style="color:#f0c14b;">📸 Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <hr style="border:0; border-top:1px solid #444; margin:20px 0;">
+    <p style="text-align:center; color:#aaa; font-size:14px;">
+      &copy; 2025 Movie Gallery. All Rights Reserved.
+    </p>
+  </footer>
+</body>
+
+</html>
